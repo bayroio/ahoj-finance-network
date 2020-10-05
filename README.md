@@ -1,2 +1,2 @@
-# ahoj-finance-network
+# Ahoj Finance Network
 🏠 http://www.ahoj.finance
