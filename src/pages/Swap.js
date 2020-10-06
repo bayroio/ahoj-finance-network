@@ -7,6 +7,9 @@ import Modal from 'react-bootstrap/Modal'
 import Nav from 'react-bootstrap/Nav'
 import Card from 'react-bootstrap/Card'
 import SwapForm from './SwapForm';
+import NewPairForm from './NewPairForm';
+import AddLiquidityForm from './AddLiquidityForm'
+import PoolAnalytics from './PoolAnalytics'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class SwapPage extends Component {
@@ -20,6 +23,9 @@ class SwapPage extends Component {
       selectedKeyNewPairAddLiquidity: "1",
       showNewPairForm: false,
       showAddLiquidityForm: false,
+      selectedKeyMyPools: null,
+      showRemoveLiquidity: false,
+      showPoolAnalytics: false
     };
 
     this.state = this.initialState;
@@ -56,10 +62,14 @@ class SwapPage extends Component {
       case "1":
         this.setState({ showNewPairForm: true  });
         this.setState({ showAddLiquidityForm: false  });
+        this.setState({ showRemoveLiquidity: false  });
+        this.setState({ showPoolAnalytics: false  });
         break;
       case "2":
         this.setState({ showNewPairForm: false  });
         this.setState({ showAddLiquidityForm: true  });
+        this.setState({ showRemoveLiquidity: false  });
+        this.setState({ showPoolAnalytics: false  });
         break;
     }
   }
@@ -68,9 +78,40 @@ class SwapPage extends Component {
     this.hideShowNewPairAddLiquidityForms(eventKey);
     this.setState({selectedKeyNewPairAddLiquidity: eventKey});
   }
+
+  hideShowMyPools(eventKey) {
+    console.log(eventKey);
+    switch (eventKey) {
+      default: case null:
+        break;
+      case "1":
+        this.setState({ showAddLiquidityForm: true  });
+        this.setState({ showRemoveLiquidity: false  });
+        this.setState({ showPoolAnalytics: false  });
+        this.setState({ showNewPairForm: false  });
+        break;
+      case "2":
+        this.setState({ showAddLiquidityForm: false  });
+        this.setState({ showRemoveLiquidity: true  });
+        this.setState({ showPoolAnalytics: false  });
+        this.setState({ showNewPairForm: false  });
+        break;
+      case "3":
+        this.setState({ showAddLiquidityForm: false  });
+        this.setState({ showRemoveLiquidity: false  });
+        this.setState({ showPoolAnalytics: true  });
+        this.setState({ showNewPairForm: false  });
+        break;
+    }
+  }
+
+  handleSelectMyPools = (eventKey) => {
+    this.hideShowMyPools(eventKey);
+    this.setState({selectedKeyMyPools: eventKey});
+  }
   
   render() {
-    const { showswapForm, showpoolForm, showNewPairForm, showAddLiquidityForm } = this.state; 
+    const { showswapForm, showpoolForm, showNewPairForm, showAddLiquidityForm, showRemoveLiquidity, showPoolAnalytics } = this.state; 
 
     return (
       <Layout>
@@ -80,8 +121,8 @@ class SwapPage extends Component {
               <Card.Header>
                 <h1>Ahoj.Swap</h1>
                 <br/>
-                Swap your AVAX for AHOJ, AHOJ for asaUSD/asaEUR/asaCHF or any Ahoj Synthetic Asset (ASA) for asaUSD/asaEUR/asaCHF. 
-                If you want to trade between diverse Ahoj synthetic assets (ASA), use AHOJ.INVEST
+                Swap between AVAX, AHOJ, asaCHF or asaEUR. 
+                If you want to trade between AVAX AHOJ and other Ahoj synthetic assets (ASA), use AHOJ.INVEST
               </Card.Header>
             </Card>
             <br/>
@@ -119,6 +160,21 @@ class SwapPage extends Component {
                           </p>
                         </Card.Header>
                         <Card.Body>
+                          <Alert variant="success">
+                            AVAX/AHOJ
+                                <Nav className="justify-content-end" activeKey={ this.state.selectedKeyMyPools } onSelect={this.handleSelectMyPools}>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="1">Add</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="2">Remove</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="3">Analytics</Nav.Link>
+                                    </Nav.Item>
+                                </Nav>
+                          </Alert>
+                          <br/>
                           <div>
                             <Nav className="justify-content-end" variant="pills" activeKey={ this.state.selectedKeyNewPairAddLiquidity } onSelect={this.handleSelectNewPairOrAddLiquidity}>
                               <Nav.Item>
@@ -135,9 +191,14 @@ class SwapPage extends Component {
                             (
                               <div id="newPairForm">
                                 <Container>
-                                  <h6>New Pair</h6>
-                                  <br/>
-                                  <Card></Card>
+                                  <Card>
+                                      <Card.Header>
+                                          <h6>Create a Pair</h6>
+                                      </Card.Header>
+                                      <Card.Body>
+                                        <NewPairForm />
+                                    </Card.Body>
+                                  </Card>
                                 </Container>
                                 </div>
                             )
@@ -147,9 +208,47 @@ class SwapPage extends Component {
                             (
                               <div id="addLiquidityForm">
                                 <Container>
-                                  <h6>Add Liquidity</h6>
-                                  <br/>
-                                  <Card></Card>
+                                  <Card>
+                                      <Card.Header>
+                                          <h6>Add Liquidity</h6>
+                                      </Card.Header>
+                                      <Card.Body>
+                                        <AddLiquidityForm />
+                                    </Card.Body>
+                                  </Card>
+                                </Container>
+                                </div>
+                            )
+                          }
+                          {
+                            showRemoveLiquidity && 
+                            (
+                              <div id="removeLiquidityForm">
+                                <Container>
+                                  <Card>
+                                      <Card.Header>
+                                          <h6>Remove Liquidity</h6>
+                                      </Card.Header>
+                                      <Card.Body>
+                                      </Card.Body>
+                                  </Card>
+                                </Container>
+                                </div>
+                            )
+                          }
+                          {
+                            showPoolAnalytics && 
+                            (
+                              <div id="poolAnalyticsForm">
+                                <Container>
+                                  <Card>
+                                      <Card.Header>
+                                          <h6>Pool Analytics</h6>
+                                      </Card.Header>
+                                      <Card.Body>
+                                          <PoolAnalytics />
+                                      </Card.Body>
+                                  </Card>
                                 </Container>
                                 </div>
                             )

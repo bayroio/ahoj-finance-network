@@ -7,7 +7,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import FormControl from 'react-bootstrap/FormControl'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-class SwapForm extends Component {
+class NewPairForm extends Component {
     constructor(props) {
         super(props);
         
@@ -46,7 +46,7 @@ class SwapForm extends Component {
         return (
             <Form onSubmit={this.onFormSubmit}>
                 <Form.Group>
-                    <Form.Label>From Balance</Form.Label>
+                    <Form.Label>Input</Form.Label>
                     <InputGroup className="mb-3">
                         <DropdownButton
                         as={InputGroup.Prepend}
@@ -65,7 +65,7 @@ class SwapForm extends Component {
                 </Form.Group>
                 ↓
                 <Form.Group>
-                    <Form.Label>To</Form.Label>
+                    <Form.Label>Input</Form.Label>
                     <InputGroup className="mb-3">
                         <DropdownButton
                         as={InputGroup.Prepend}
@@ -82,16 +82,18 @@ class SwapForm extends Component {
                     </InputGroup>
                 </Form.Group>
                 <p>
-                Swap market commission: 0%
+                AVAX per AHOJ: 0.00988567
                 <br/>
-                Network commissions: AVAX $0
+                AHOJ per AVAX: 101.157
+                <br/>
+                Share of Pool: 5.15%
                 </p>
                 <Button variant="primary" size="lg" type="submit">
-                    Swap
+                    Create New Pair and Supply Liquidity
                 </Button>
             </Form>
         );
     }
 }
 
-export default SwapForm;
+export default NewPairForm;
