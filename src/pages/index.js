@@ -10,6 +10,7 @@ import pic5 from '../assets/images/05.jpg';
 //import pic6 from '../assets/images/06.jpg';
 
 import { Link } from 'gatsby';
+import Footer from '../components/Footer';
 
 const IndexPage = () => (
   <Layout>

@@ -10,6 +10,11 @@ import SwapForm from './SwapForm';
 import NewPairForm from './NewPairForm';
 import AddLiquidityForm from './AddLiquidityForm'
 import PoolAnalytics from './PoolAnalytics'
+import CreateAccountForm from './CreateAccountForm'
+
+import EjemploAPI from '../API/Ejemplo'
+import GetAllBalances from '../API/GetAllBalances'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class SwapPage extends Component {
@@ -109,6 +114,13 @@ class SwapPage extends Component {
     this.hideShowMyPools(eventKey);
     this.setState({selectedKeyMyPools: eventKey});
   }
+
+   handleCreateAccount = (event) => {
+        /*event.preventDefault();
+        this.props.handleSubmit(this.state);
+        this.setState(this.initialState);*/
+        console.log("handleCreateAccount ", event)
+    }
   
   render() {
     const { showswapForm, showpoolForm, showNewPairForm, showAddLiquidityForm, showRemoveLiquidity, showPoolAnalytics } = this.state; 
@@ -124,6 +136,10 @@ class SwapPage extends Component {
                 Swap between AVAX, AHOJ, asaCHF or asaEUR. 
                 If you want to trade between AVAX AHOJ and other Ahoj synthetic assets (ASA), use AHOJ.INVEST
               </Card.Header>
+            </Card>
+            <br/>
+            <Card>
+                <CreateAccountForm />
             </Card>
             <br/>
             <Nav fill variant="tabs" activeKey={ this.state.selectedKeySwapPool } onSelect={this.handleSelectSwapOrPool}>
