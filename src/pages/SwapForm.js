@@ -5,6 +5,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import FormControl from 'react-bootstrap/FormControl'
+import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ABICODE = require('../contracts/abi/aggregatorInterface.json')
@@ -24,7 +25,8 @@ class SwapForm extends Component {
         super(props);
         
         this.initialState = {
-            dropDownValueFrom: "Select an asset",
+            simple: false,
+            dropDownValueFrom: "ETH",
             dropDownValueTo: "Select an asset",
             input1: 0,
             input2: 0,
@@ -32,7 +34,9 @@ class SwapForm extends Component {
             token2: 0,
             value1: null,
             value2: null,
-            precioUnitario: null
+            unitPrice: null,
+            fee: 0,
+            transactionValue: 0
         };
 
         this.state = this.initialState;
@@ -113,7 +117,7 @@ class SwapForm extends Component {
     }
 
     ETHUSD1 = async () => {
-        console.log("--- TOKEN/USD ---", this.state);
+        console.log("--- TOKEN/USD ---");
         const aggregatorInterfaceABI = ABICODE;
         console.log("TOKEN",this.state.token1);
         var addr = currencies[this.state.token1].address;
@@ -122,7 +126,6 @@ class SwapForm extends Component {
           .latestAnswer()
           .call()
           .then((price) => {
-            //Do something with price
             price = price / 100000000;
             this.setState({value1: price});
             console.log(price);
@@ -131,7 +134,7 @@ class SwapForm extends Component {
       }
     
       ETHUSD2 = async () => {
-        console.log("--- TOKEN/USD ---", this.state);
+        console.log("--- TOKEN/USD ---");
         const aggregatorInterfaceABI = ABICODE;
         console.log("TOKEN",this.state.token2);
         var addr = currencies[this.state.token2].address;
@@ -140,7 +143,6 @@ class SwapForm extends Component {
           .latestAnswer()
           .call()
           .then((price) => {
-            //Do something with price
             price = price / 100000000;
             this.setState({value2: price});
             console.log(price);
@@ -149,53 +151,83 @@ class SwapForm extends Component {
       }
     
       calcConverValue (opc) {
-        console.log("Entrando a calcConverValue",opc);
+        var cr = 0;
+        var unit = 0;
+        var feeValue = 0;
+        var tranValue = 0;
         if(opc === 1){
-          var cr = 0;
-          var unit = 0;
           const cs = this.state.input1;
           const priceCS = this.state.value1;
           const priceCR = this.state.value2;
           console.log("CS",cs);
           console.log("priceCS",priceCS);
           console.log("priceCR",priceCR);
-          cr = (cs*priceCS)/priceCR;
+          tranValue = (cs*priceCS);
+          cr = tranValue/priceCR;
           unit = cs/cr;
-          this.setState({input2: cr, precioUnitario: unit});
+          feeValue = cs * 0.003;
+          if(this.state.simple){
+            this.setState({input2: parseFloat(cr.toFixed(4)), unitPrice: parseFloat(unit.toFixed(4)), fee: feeValue, transactionValue: parseFloat(tranValue.toFixed(4))});
+          } else {
+            this.setState({input2: cr, unitPrice: unit, fee: feeValue, transactionValue: tranValue});
+          }
         } else {
-          var cr = 0;
-          var unit = 0;
           const cs = this.state.input2;
           const priceCS = this.state.value2;
           const priceCR = this.state.value1;
           console.log("CS",cs);
           console.log("priceCS",priceCS);
           console.log("priceCR",priceCR);
-          cr = (cs*priceCS)/priceCR;
+          tranValue = (cs*priceCS);
+          cr = tranValue/priceCR;
           unit = cs/cr;
-          this.setState({input1: cr, precioUnitario: unit});
+          feeValue = cs * 0.003;
+          if(this.state.simple){
+            this.setState({input1: parseFloat(cr.toFixed(4)), unitPrice: parseFloat(unit.toFixed(4)), fee: feeValue, transactionValue: parseFloat(tranValue.toFixed(4))});
+          } else {
+            this.setState({input1: cr, unitPrice: unit, fee: feeValue, transactionValue: tranValue});
+          }
         }
       }
     
       calcConverCoin () {
-        console.log("Entrando a calcConverCoin");
         var cr = 0;
         var unit = 0;
+        var feeValue = 0;
+        var tranValue = 0;
         const cs = this.state.input1;
         const priceCS = this.state.value1;
         const priceCR = this.state.value2;
         console.log("CS",cs);
         console.log("priceCS",priceCS);
         console.log("priceCR",priceCR);
-        cr = (cs*priceCS)/priceCR;
+        tranValue = (cs*priceCS);
+        cr = tranValue/priceCR;
         unit = cs/cr;
-        this.setState({input2: cr, precioUnitario: unit});
+        feeValue = cs * 0.003;
+        if(this.state.simple){
+            this.setState({input2: parseFloat(cr.toFixed(4)), unitPrice: parseFloat(unit.toFixed(4)), fee: feeValue, transactionValue: parseFloat(tranValue.toFixed(4))});
+          } else {
+            this.setState({input2: cr, unitPrice: unit, fee: feeValue, transactionValue: tranValue});
+          }
       }
 
     render() {
         return (
             <Form onSubmit={this.onFormSubmit}>
                 <Form.Group>
+                    Simple Version
+                    <BootstrapSwitchButton
+                        checked={this.state.simple}
+                        onlabel='On'
+                        offlabel='Off'
+                        size="xs"
+                        style="primary"
+                        onChange={(checked) => {
+                            this.setState({simple: checked })
+                        }}
+                    />
+                    <br/>
                     <Form.Label>From Balance</Form.Label>
                     <InputGroup className="mb-3">
                         <DropdownButton
@@ -209,7 +241,6 @@ class SwapForm extends Component {
                         <FormControl size="lg" placeholder="0.00" value={this.state.input1} onChange={e => this.handleValueChange(e, 'input1', 1)}/>
                     </InputGroup>
                 </Form.Group>
-                ↓
                 <Form.Group>
                     <Form.Label>To</Form.Label>
                     <InputGroup className="mb-3">
@@ -225,7 +256,9 @@ class SwapForm extends Component {
                     </InputGroup>
                 </Form.Group>
                 <p>
-                Swap market commission: 0%
+                Value of transaction in Dollars: {this.state.transactionValue}USD
+                <br/>
+                Liquidity Provider Fee: {this.state.fee}ETH
                 <br/>
                 Network commissions: AVAX $0
                 </p>
