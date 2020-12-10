@@ -9,13 +9,15 @@ import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ABICODE = require('../contracts/abi/aggregatorInterface.json')
-const RESOURCES = require('../resources/directoryRinkeby.json');
+const RESOURCES = require('../resources/directoryFuji.json');
 const currencies = RESOURCES.tokens;
+
+//Address del PriceConsumer 0xcB5C7c92F78a58d60fa74f1317948ce809de09ed
 
 const Web3 = require("web3");
 const web3 = new Web3(
     new Web3.providers.HttpProvider(
-    "https://rinkeby.infura.io/v3/fedfa150b08c4b8faacdc53c2e673798"
+    "https://api.avax-test.network/ext/bc/C/rpc"
     )
 );
 
@@ -25,6 +27,7 @@ class SwapForm extends Component {
         super(props);
         
         this.initialState = {
+            address: "0xcB5C7c92F78a58d60fa74f1317948ce809de09ed",
             simple: false,
             dropDownValueFrom: "ETH",
             dropDownValueTo: "Select an asset",
@@ -71,7 +74,6 @@ class SwapForm extends Component {
 
     onFormSubmit = (event) => {
         event.preventDefault();
-        
         this.props.handleSubmit(this.state);
         this.setState(this.initialState);
     }
@@ -121,9 +123,9 @@ class SwapForm extends Component {
         const aggregatorInterfaceABI = ABICODE;
         console.log("TOKEN",this.state.token1);
         var addr = currencies[this.state.token1].address;
-        const priceFeed = new web3.eth.Contract(aggregatorInterfaceABI, addr);
+        const priceFeed = new web3.eth.Contract(aggregatorInterfaceABI, this.state.address);
         priceFeed.methods
-          .latestAnswer()
+          .getLatestPrice(addr)
           .call()
           .then((price) => {
             price = price / 100000000;
@@ -138,9 +140,9 @@ class SwapForm extends Component {
         const aggregatorInterfaceABI = ABICODE;
         console.log("TOKEN",this.state.token2);
         var addr = currencies[this.state.token2].address;
-        const priceFeed = new web3.eth.Contract(aggregatorInterfaceABI, addr);
+        const priceFeed = new web3.eth.Contract(aggregatorInterfaceABI, this.state.address);
         priceFeed.methods
-          .latestAnswer()
+          .getLatestPrice(addr)
           .call()
           .then((price) => {
             price = price / 100000000;

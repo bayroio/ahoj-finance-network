@@ -1,0 +1,68 @@
+{
+    "name": "Fuji List",
+    "version": {
+        "major": 1,
+        "minor": 0,
+        "patch": 0
+    },
+    "tokens": [
+        {
+        "address": "0x29A360b5f47F2D5d3249Af659E155905e4bae5c1",
+        "chainId": 43113,
+        "name": "Ether",
+        "symbol": "ETH",
+        "decimals": 6
+        },
+        {
+        "address": "0xaD5381a17f125D907e68209692C61b7e9B19CF44",
+        "chainId": 43113,
+        "name": "DAI",
+        "symbol": "DAI",
+        "decimals": 6
+        },
+        {
+        "address": "0xbfEF8f1e74fd44c2E1A50175310499bDEDfC10F7",
+        "chainId": 43113,
+        "name": "Swiss franc",
+        "symbol": "CHF",
+        "decimals": 6
+        },
+        {
+        "address": "0x56eb1c8787EBa30983B01877D6C24E67507E07d1",
+        "chainId": 43113,
+        "name": "Australian dollar",
+        "symbol": "AUD",
+        "decimals": 6
+        },
+        {
+        "address": "0xc7486A3feDF61856C550117735d251d37Fc3d1aC",
+        "chainId": 43113,
+        "name": "Euro",
+        "symbol": "EUR",
+        "decimals": 6
+        }
+        ,
+        {
+        "address": "0x611BF443cc48aA01A780B9171Af26Fb8076d5449",
+        "chainId": 43113,
+        "name": "Yen",
+        "symbol": "JPY ",
+        "decimals": 6
+        },
+        {
+        "address": "0x5E8c07793f16d2a0273cde3EB92d010e1725E97b",
+        "chainId": 43113,
+        "name": "Avax",
+        "symbol": "AVAX",
+        "decimals": 6
+        }
+        ,
+        {
+        "address": "0x7D6c00D0a4E927d80d7a340C4A3A4D24d489B035",
+        "chainId": 43113,
+        "name": "Ahoj",
+        "symbol": "AHOJ",
+        "decimals": 6
+        }
+    ]
+}
