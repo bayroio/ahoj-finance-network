@@ -1,5 +1,5 @@
 module.exports = {
-  siteTitle: 'Ahoj Finance Network', // <title>
+  siteTitle: 'Ahoj Finance', // <title>
   manifestName: 'Phantom',
   manifestShortName: 'Landing', // max 12 characters
   manifestStartUrl: '/',
@@ -7,7 +7,7 @@ module.exports = {
   manifestThemeColor: '#663399',
   manifestDisplay: 'standalone',
   //manifestIcon: 'src/assets/img/website-icon.svg',
-  manifestIcon: 'src/assets/img/narwhal23x24.png',
+  manifestIcon: 'src/assets/img/iconoNew.png',
   pathPrefix: `/gatsby-starter-phantom/`, // This path is subpath of your hosting https://domain/portfolio
   heading: 'Edgar Herrador',
   subHeading: 'Founder & CEO - Bayro ',
