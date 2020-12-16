@@ -16,7 +16,7 @@ const IndexPage = () => (
   <Layout>
     <div id="main">
       <div className="inner">
-      <h4>Coming soon......</h4>
+      <h4>"Coming soon... runs on Avalanche!"</h4>
         <section className="tiles">
           <article className="style1">
             <span className="image">
