@@ -16,18 +16,21 @@ const IndexPage = () => (
   <Layout>
     <div id="main">
       <div className="inner">
-        <i>...working with the help of narwhals.</i>
+      <h4>Coming soon......</h4>
         <section className="tiles">
           <article className="style1">
             <span className="image">
               <img src={pic1} alt="" />
             </span>
-            <Link to="/Swap">
-              <h5>Ahoj.Swap</h5>
+            <Link to="">
+              <h5>Ahoj.Mix</h5>
               <div className="content">
                 <p>
-                Our liquidity provision protocol. For you... a simple way to trade one asset for another.
+                Automated liquidity protocol powered by an Automated Market Maker. 
                 </p>
+                <b>Ahoj.Jars:</b> Liquidity Provider Protocol.
+                <br></br>
+                <b>Ahoj.Swap:</b> Trade one asset for another.
               </div>
             </Link>
           </article>
@@ -35,12 +38,11 @@ const IndexPage = () => (
             <span className="image">
               <img src={pic2} alt="" />
             </span>
-            <Link to="/Mint">
-              <h5>Ahoj.Mint</h5>
+            <Link to="">
+              <h5>Ahoj.Synth</h5>
               <div className="content">
                 <p>
-                This is the right way to define economics/financial rules 
-                to create new ASA (AHOJ Synthetic Assets).
+                A service for creating economic or financial rules to mint new <b>ASA</b> (Ahoj Synthetic Assets).
                 </p>
               </div>
             </Link>
@@ -49,11 +51,11 @@ const IndexPage = () => (
             <span className="image">
               <img src={pic3} alt="" />
             </span>
-            <Link to="/Invest">
-              <h5>Ahoj.Invest</h5>
+            <Link to="">
+              <h5>Ahoj.Token</h5>
               <div className="content">
                 <p>
-                A service to trade all minted ASA (AHOJ Synthetic Assets).
+                Is a Synthetic Commodity Money to be used as a stablecoin within the protocol, and among other things that can be used as collateral / guarantee at the time of minting an <b>ASA</b> in the protocol.
                 </p>
               </div>
             </Link>
@@ -64,19 +66,18 @@ const IndexPage = () => (
             <span className="image">
               <img src={pic5} alt="" />
             </span>
-            <Link to="/Dashboard">
-              <h5>Ahoj.Dashboard</h5>
+            <Link to="">
+              <h5>Ahoj.Dash</h5>
               <div className="content">
                 <p>
-                If you want check all the financial information around 
-                our synthetic market... this is the right place.
+                Dashboard with all financial information concerning Ahoj.Token & ASA market cap.
                 </p>
               </div>
             </Link>
           </article>
-          <article className="style6">
-          </article>
+
         </section>
+        
       </div>
     </div>
   </Layout>

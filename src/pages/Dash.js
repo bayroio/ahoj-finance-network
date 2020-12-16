@@ -1,18 +1,18 @@
 import React from 'react';
 
 import Layout from '../components/Layout';
-import pic3 from '../assets/images/03.jpg';
+import pic5 from '../assets/images/05.jpg';
 
 const IndexPage = () => (
   <Layout>
     <div id="main">
       <div className="inner">
-        <h1>AHOJ.INVEST</h1>
+        <h1>AHOJ.DASH</h1>
         <span className="image main">
-          <img src={pic3} alt="" />
+          <img src={pic5} alt="" />
         </span>
         <p>
-          A service to trade all minted ASA (AHOJ Synthetic Assets).
+          If you want check all the financial information around our synthetic market... this is the right place.
         </p>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus
